@@ -1,8 +1,4 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Duke {
@@ -10,11 +6,8 @@ public class Duke {
         Scanner reply = new Scanner(System.in);
         System.out.println("Hello! I'm Duke\nWhat can I do for you?\n");
 
-        FileData f = new FileData("data/duke.txt");
-        f.toPrint();
-
         String currReply = reply.nextLine();
-        ArrayList<Task> list = f.allTasks();
+        ArrayList<Task> list = new ArrayList<>(100);
 
         while (!currReply.equals("bye")) {
             if (currReply.equals("list")) {
@@ -42,7 +35,6 @@ public class Duke {
                     } else {
                         Task task = list.get(index);
                         task.isMark(true);
-                        f.updateData(list);
                         System.out.println("Nice! I've marked this task as done:\n" +
                                 " " + task.toString() + "\n");
                         currReply = reply.nextLine();
@@ -61,7 +53,6 @@ public class Duke {
                     } else {
                         Task task = list.get(index);
                         task.isMark(false);
-                        f.updateData(list);
                         System.out.println("OK, I've marked this task as not done yet:\n" +
                                 " " + task.toString() + "\n");
                         currReply = reply.nextLine();
@@ -80,7 +71,6 @@ public class Duke {
                     } else {
                         Task task = list.get(index);
                         list.remove(index);
-                        f.updateData(list);
                         System.out.println("Noted. I've removed this task:\n" +
                                 " " + task.toString() + "\n" + "Now you have " +
                                 list.size() + " tasks in the list.\n");
@@ -100,9 +90,7 @@ public class Duke {
                         } else {
                             String actTask = currReply.substring(5);
                             Task currTask = new Todo(actTask);
-                            currTask.setDate(null);
                             list.add(currTask);
-                            f.storeData(currTask.toString());
                             System.out.println("Got it. I've added this task:\n" +
                                     " " + currTask.toString() + "\n" +
                                     "Now you have " + list.size() + " tasks in the list.\n");
@@ -127,7 +115,6 @@ public class Duke {
                                 String taskDate = currReply.substring(slashIndex + 4);
                                 Task currTask = new Deadline(actTask, taskDate);
                                 list.add(currTask);
-                                f.storeData(currTask.toString());
                                 System.out.println("Got it. I've added this task:\n" +
                                         " " + currTask.toString() + "\n" +
                                         "Now you have " + list.size() + " tasks in the list.\n");
@@ -153,7 +140,6 @@ public class Duke {
                                 String taskDate = currReply.substring(slashIndex + 4);
                                 Task currTask = new Event(actTask, taskDate);
                                 list.add(currTask);
-                                f.storeData(currTask.toString());
                                 System.out.println("Got it. I've added this task:\n" +
                                         " " + currTask.toString() + "\n" +
                                         "Now you have " + list.size() + " tasks in the list.\n");

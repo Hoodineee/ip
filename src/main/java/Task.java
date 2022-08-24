@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected String date;
+    protected DateFormat date;
 
     public void isMark(boolean bool) {
         this.isDone = bool;
@@ -12,7 +12,7 @@ public class Task {
     }
 
     public void setDate(String str) {
-        this.date = str;
+        this.date = new DateFormat(str);
     }
 
     public String getStatusIcon() {
@@ -20,7 +20,7 @@ public class Task {
     }
 
     public String toString() {
-        return this.description;
+        return date.toString();
     }
 }
 
